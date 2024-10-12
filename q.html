@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dysgraphia Screening Tool</title>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #4caf50;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .question {
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        #result {
+            display: none;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .button:disabled {
+            background-color: #cccccc;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .progress {
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #4caf50;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        #resultText {
+            font-size: 1.2em;
+        }
+
+        .question-container {
+            margin-top: 20px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1 class="center">Dysgraphia Screening Tool</h1>
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <form id="dysgraphiaForm">
+            <div id="question1" class="question active question-container">
+                <p>1. How often does your handwriting seem difficult to read?</p>
+                <label><input type="radio" name="q1" value="0"> Never (0 points)</label>
+                <label><input type="radio" name="q1" value="1"> Occasionally (1 point)</label>
+                <label><input type="radio" name="q1" value="2"> Frequently (2 points)</label>
+                <label><input type="radio" name="q1" value="3"> Almost always (3 points)</label>
+                <button type="button" class="button" onclick="nextQuestion(1)">Next</button>
+            </div>
+
+            <div id="question2" class="question question-container">
+                <p>2. Do you find it hard to copy text from the board or a book?</p>
+                <label><input type="radio" name="q2" value="0"> Never (0 points)</label>
+                <label><input type="radio" name="q2" value="1"> Sometimes (1 point)</label>
+                <label><input type="radio" name="q2" value="2"> Often (2 points)</label>
+                <label><input type="radio" name="q2" value="3"> Very often (3 points)</label>
+                <button type="button" class="button" onclick="nextQuestion(2)">Next</button>
+            </div>
+
+            <div id="question3" class="question question-container">
+                <p>3. How do you feel when writing a long paragraph or essay?</p>
+                <label><input type="radio" name="q3" value="0"> Comfortable (0 points)</label>
+                <label><input type="radio" name="q3" value="1"> A little stressed (1 point)</label>
+                <label><input type="radio" name="q3" value="2"> Very stressed (2 points)</label>
+                <label><input type="radio" name="q3" value="3"> Extremely stressed (3 points)</label>
+                <button type="button" class="button" onclick="nextQuestion(3)">Next</button>
+            </div>
+
+            <div id="question4" class="question question-container">
+                <p>4. How often do you make spelling errors,even when you know it?</p>
+                <label><input type="radio" name="q4" value="0"> Never (0 points)</label>
+                <label><input type="radio" name="q4" value="1"> Occasionally (1 point)</label>
+                <label><input type="radio" name="q4" value="2"> Frequently (2 points)</label>
+                <label><input type="radio" name="q4" value="3"> Almost always (3 points)</label>
+                <button type="button" class="button" onclick="nextQuestion(4)">Next</button>
+            </div>
+
+            <div id="question5" class="question question-container">
+                <p>5. How often do you struggle to organize your thoughts on paper?</p>
+                <label><input type="radio" name="q5" value="0"> Never (0 points)</label>
+                <label><input type="radio" name="q5" value="1"> Sometimes (1 point)</label>
+                <label><input type="radio" name="q5" value="2"> Often (2 points)</label>
+                <label><input type="radio" name="q5" value="3"> Very often (3 points)</label>
+                <button type="button" class="button" onclick="showResult()">Submit</button>
+            </div>
+        </form>
+
+        <div id="result" class="center">
+            <h2>Your Result</h2>
+            <p id="resultText"></p>
+        </div>
+        <button class="button" onclick="back()">Back</button>
+    </div>
+
+    <script>
+        function nextQuestion(currentQuestion) {
+            document.getElementById('question' + currentQuestion).classList.remove('active');
+            document.getElementById('question' + (currentQuestion + 1)).classList.add('active');
+            updateProgress(currentQuestion + 1);
+        }
+
+        function updateProgress(questionNumber) {
+            var progress = (questionNumber / 5) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function showResult() {
+            var totalScore = 0;
+            for (var i = 1; i <= 5; i++) {
+                var question = document.getElementsByName('q' + i);
+                for (var j = 0; j < question.length; j++) {
+                    if (question[j].checked) {
+                        totalScore += parseInt(question[j].value);
+                    }
+                }
+            }
+
+            var resultText;
+            if (totalScore <= 5) {
+                resultText = "Unlikely to have dysgraphia.";
+            } else if (totalScore <= 9) {
+                resultText = "Moderate chance of dysgraphia; further assessment may be needed.";
+            } else {
+                resultText = "High chance of dysgraphia; professional evaluation recommended.";
+            }
+
+            document.getElementById("resultText").innerText = "Your total score is: " + totalScore + ". " + resultText;
+            document.getElementById("dysgraphiaForm").style.display = "none";
+            document.getElementById("result").style.display = "block";
+        }
+
+        function back() {
+            window.location.href = "main.html";
+        }
+    </script>
+</body>
+
+</html>

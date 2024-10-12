@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.js"></script>
+
+    <style>
+        body {
+            background: #f0f2f5;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+            max-width: 1000px;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            font-size: 36px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        #camera {
+            width: 100%;
+            height: auto;
+            background-color: #e3e3e3;
+            border-radius: 10px;
+        }
+
+        .btn-classy {
+            margin-top: 20px;
+            font-size: 16px;
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(116, 235, 213, 0.3);
+            cursor: pointer;
+        }
+
+        .btn-classy:hover {
+            background: white;
+            color: #007bff;
+            border: 2px solid #007bff;
+            box-shadow: 0 12px 20px rgba(0, 123, 255, 0.4);
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .result-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        #result {
+            width: 350px;
+            height: auto;
+            background-color: #e3e3e3;
+            border-radius: 10px;
+        }
+
+        .recommended-text {
+            font-size: 14px;
+            color: #6c757d;
+            margin-left: 10px;
+            display: inline-block;
+        }
+
+        /* Increased font size for the prediction result */
+        .hand_name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .result-container {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            #camera, #result {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>DysCare Prediction System</h2>
+        <center>
+            <div class="card">
+                <label>Webcam View - </label>
+                <div id="camera"></div>
+                <script>
+                    window.onload = function() {
+                        Webcam.set({
+                            width: 350,
+                            height: 300,
+                            image_format: "png",
+                            png_quality: 90
+                        });
+                        Webcam.attach('#camera');
+                    };
+                </script>
+                <button onclick="take_snapshot()" class="btn-classy">Capture Image</button>
+            </div>
+
+            <div class="result-container">
+                <div class="card">
+                    <label>Prediction 1 - </label>
+                    <!-- Increased font size for the prediction result -->
+                    <p class="hand_name" id="result_hand_name">[Prediction Appears Here]</p>
+                </div>
+
+                <div class="card">
+                    <label>Snapshot - </label>
+                    <div id="result"></div>
+                    <button class="btn-classy" onclick="predict()">Predict</button>
+                </div>
+            </div>
+
+            <div class="btn-container">
+                <div>
+                    <button onclick="q()" class="btn-classy">Questionnaire</button>
+                    <span class="recommended-text">(recommended for better evaluation)</span>
+                </div>
+                <button onclick="back()" class="btn-classy">Back</button>
+            </div>
+        </center>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

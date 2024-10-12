@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <script src="main.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f4f8;
+                color: #333;
+                background-image: none; /* Ensure no background image */
+            }
+            .iframe-container {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            .iframe-container iframe {
+                margin: 10px;
+                border: 2px solid #007bff;
+                border-radius: 8px;
+            }
+            
+            .centered-button{
+        margin-top: 20px;
+        margin-bottom: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+
+    button {
+            background-color: #ffffff;
+            color: #007bff;
+            font-size: 18px;
+            padding: 15px 30px;
+            border-radius: 30px;
+            border: 2px solid #007bff;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0, 123, 255, 0.3);
+            width: 200px; /* Set a fixed width for the buttons */
+            text-align: center; /* Center the text inside the buttons */
+        }
+
+        button:hover {
+            background-color: #007bff;
+            color: white;
+            box-shadow: 0 12px 20px rgba(0, 123, 255, 0.4);
+        }
+            p {
+                padding: 20px;
+                background-color: #e9f7ff;
+                border-left: 5px solid #007bff;
+                border-radius: 5px;
+                font-size: large;
+            }
+        </style>
+    </head>
+    <body id="sup">
+        <p>Dexterity and finger strength is very important when it comes to handwriting. If your child has dysgraphia, their fine motor skills will need work on and the strength in their fingers will need to be improved. Playing games that focus on the development of motor skills just 30 minutes a day will increase both strength and dexterity.</p>
+        <div class="iframe-container">
+            <iframe src="https://scratch.mit.edu/projects/1054519412/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
+            <iframe src="https://scratch.mit.edu/projects/1054518222/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
+            <iframe src="https://scratch.mit.edu/projects/553444831/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <div class="centered-button">
+            <button onclick="back()">Back</button>
+        </div>
+    </body>
+</html>
